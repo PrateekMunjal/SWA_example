@@ -1,6 +1,6 @@
 There are two ways in which SWA is implemented in pytorch.
 
-1. torchcontrib: I personally prefer this. 
+1. torchcontrib: I personally prefer this as I have used this in past and have good results. 
 2. official pytorch.
 
 In the main file,
