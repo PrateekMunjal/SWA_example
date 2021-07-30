@@ -1,0 +1,4 @@
+cifar-10-batches-py/
+.vscode/
+__pycache__/
+*.tar.gz

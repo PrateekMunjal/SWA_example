@@ -1,0 +1,7 @@
+conda create -n swa_env python=3.6 -y
+
+conda install pytorch=1.6 torchvision=0.7 cudatoolkit=10.1 -c pytorch -y
+conda install scipy scikit-learn matplotlib pandas jupyter xlrd -y
+
+pip install torchcontrib
+conda install -c conda-forge tqdm

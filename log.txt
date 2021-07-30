@@ -1,0 +1,114 @@
+Hyper-parameters for this exp: 
+
+['lr', 'weight_decay', 'train_batch_size', 'test_batch_size']
+Files already downloaded and verified
+Files already downloaded and verified
+Dataset
+# Train Images: 50000
+# Test Images:  10000
+Found 2 gpus so using DP
+--------------------------------------------------
+Epoch: 0
+Epoch [0] Batch [10/49] Loss: 1.7363885641098022
+Epoch [0] Batch [20/49] Loss: 1.5433870553970337
+Epoch [0] Batch [30/49] Loss: 1.4517227411270142
+Epoch [0] Batch [40/49] Loss: 1.3344576358795166
+Training Accuracy: 42.048
+At epoch: 0 test accuracy: 39.26
+At epoch: 0 best accuracy: 39.26 previous best: 0.0
+--------------------------------------------------
+Epoch: 1
+Epoch [1] Batch [10/49] Loss: 1.1703933477401733
+Epoch [1] Batch [20/49] Loss: 1.1220718622207642
+Epoch [1] Batch [30/49] Loss: 1.0335211753845215
+Epoch [1] Batch [40/49] Loss: 1.0636916160583496
+Training Accuracy: 60.038000000000004
+At epoch: 1 test accuracy: 52.48
+At epoch: 1 best accuracy: 52.48 previous best: 39.26
+--------------------------------------------------
+Epoch: 2
+Epoch [2] Batch [10/49] Loss: 0.8488062620162964
+Epoch [2] Batch [20/49] Loss: 0.8658890724182129
+Epoch [2] Batch [30/49] Loss: 0.8657395839691162
+Epoch [2] Batch [40/49] Loss: 0.7705000638961792
+Training Accuracy: 68.218
+At epoch: 2 test accuracy: 58.05
+At epoch: 2 best accuracy: 58.05 previous best: 52.48
+--------------------------------------------------
+Epoch: 3
+Epoch [3] Batch [10/49] Loss: 0.7578446269035339
+Epoch [3] Batch [20/49] Loss: 0.7660448551177979
+Epoch [3] Batch [30/49] Loss: 0.779427170753479
+Epoch [3] Batch [40/49] Loss: 0.7182918190956116
+Training Accuracy: 74.19
+At epoch: 3 test accuracy: 66.0
+At epoch: 3 best accuracy: 66.0 previous best: 58.05
+--------------------------------------------------
+Epoch: 4
+Epoch [4] Batch [10/49] Loss: 0.6560099124908447
+Epoch [4] Batch [20/49] Loss: 0.6133564710617065
+Epoch [4] Batch [30/49] Loss: 0.5906234979629517
+Epoch [4] Batch [40/49] Loss: 0.5698055624961853
+Training Accuracy: 78.054
+At epoch: 4 test accuracy: 74.07
+At epoch: 4 best accuracy: 74.07 previous best: 66.0
+At epoch: 0 test accuracy: 74.07
+Test_acc:  74.07
+model present in DP mode
+SWA_TRAIN on selected device_ids: 2
+===== In swa_util [torchcontrib] =====
+Evaluating model validaton accuracy to confirm whether model is correctly loaded
+At epoch: 0 test accuracy: 74.07
+Newly loaded model has accuracy: 74.07
+SWA Optimizer: SWA (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    eps: 1e-08
+    lr: 0.0005
+    n_avg: 0
+    step_counter: 0
+    weight_decay: 0
+)
+Training SWA for 3 epochs.
+len(trainloader): 49
+Averaging weights -- SWA
+Done!!
+Updating BN
+Done!!
+Evaluating validation accuracy
+At epoch: 0 test accuracy: 82.67
+Validation Accuracy with SWA model: 82.67
+Saving SWA model
+---Before SAVING SWA MODEL----
+SAVED SWA model
+SWA Model saved at /nfs/users/ext_prateek.munjal/projects/pm_research/swa_example/checkpoints/[SWA]valSet_acc_82.67000.pyth
+SWA_TRAIN on selected device_ids: 2
+===== In swa_util [official pytorch] =====
+Evaluating model validaton accuracy to confirm whether model is correctly loaded
+At epoch: 0 test accuracy: 74.07
+Newly loaded model has accuracy: 74.07
+SWA Optimizer: Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    eps: 1e-08
+    initial_lr: 0.0005
+    lr: 0.0005
+    swa_lr: 5e-05
+    weight_decay: 0
+)
+Training SWA for 3 epochs.
+len(trainloader): 49
+Updating BN
+Done!!
+Evaluating validation accuracy
+At epoch: 0 test accuracy: 83.28
+Validation Accuracy with SWA model: 83.28
+Saving SWA model
+SWA checkpoint contains module present in keys.
+So now removing 'module' strings
+Done!!
+---Before SAVING SWA MODEL----
+SAVED SWA model
+SWA Model saved at /nfs/users/ext_prateek.munjal/projects/pm_research/swa_example/checkpoints/[SWA-pytorch]valSet_acc_83.28000.pyth
