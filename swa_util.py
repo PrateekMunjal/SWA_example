@@ -21,7 +21,7 @@ def swa_train_contrib(trainloader:torch.utils.data.DataLoader, testloader:torch.
         print('model present in DDP mode')
         model = model.module
         print('Now model class: ', type(model))
-        sys.exit(0)
+        # sys.exit(0)
     elif isinstance(model, torch.nn.DataParallel):
         print('model present in DP mode')
         warnings.warn('\n We assume the model passed already utilizes maximum gpus.. if not, just pass the model without wrapping in DP/DDP \n', stacklevel=2)
@@ -147,6 +147,27 @@ def swa_train_contrib(trainloader:torch.utils.data.DataLoader, testloader:torch.
     return
 
 def swa_train_pytorch(trainloader:torch.utils.data.DataLoader, testloader:torch.utils.data.DataLoader, model_path:str, model:torch.nn.Module, optimizer:torch.optim.Optimizer, swa_settings:dict, n_gpus:int=1):
+    
+    already_dp = False
+    if isinstance(model, torch.nn.parallel.DistributedDataParallel):
+        print('model present in DDP mode')
+        model = model.module
+        print('Now model class: ', type(model))
+        # sys.exit(0)
+    elif isinstance(model, torch.nn.DataParallel):
+        print('model present in DP mode')
+        warnings.warn('\n We assume the model passed already utilizes maximum gpus.. if not, just pass the model without wrapping in DP/DDP \n', stacklevel=2)
+        already_dp = True
+    elif isinstance(model, torch.nn.Module):
+        pass
+    else:
+        raise NotImplementedError
+    
+    # converting to dataparallel
+    if not already_dp and n_gpus:
+        model = torch.nn.DataParallel(model, device_ids=range(n_gpus))
+        model = model.cuda()
+    
     save_path = os.path.abspath( os.path.join(model_path, os.pardir ))
 
     swa_start_iter = swa_settings['start_iter']
@@ -169,7 +190,8 @@ def swa_train_pytorch(trainloader:torch.utils.data.DataLoader, testloader:torch.
     print("Newly loaded model has accuracy: {}".format(best_acc))
     model.train()
 
-
+    # I recommend to use exp moving average over simple average function; the torchcontrib implements EMA only.
+    # I leave the choice to user now.
     # ema_avg = lambda averaged_model_parameter, model_parameter, num_averaged: 0.1 * averaged_model_parameter + 0.9 * model_parameter
     swa_model = AveragedModel(model)#, avg_fn=ema_avg)
     swa_scheduler = SWALR(optimizer,anneal_strategy="linear", anneal_epochs=1, swa_lr=swa_lr)
